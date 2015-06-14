@@ -19,8 +19,6 @@ public class Master {
 		this.timeout = timeout;
 		this.baudrate = baudrate;
 		this.portName = portName;
-		this.inputPort = this.port.getInputStream();
-		this.outputPort = this.port.getOutputStream();
 	}
 	
 	public void openPort() {
@@ -59,9 +57,11 @@ public class Master {
 	
 	public void start() {
 		try {
+			this.inputPort = this.port.getInputStream();
 			this.port.addEventListener(new SerialReader(this.inputPort));
 			this.port.notifyOnDataAvailable(true);
 			
+			this.outputPort = this.port.getOutputStream();
 			this.thread = new Thread(new SerialWriter(this.outputPort));
 			this.thread.start();
 		}
