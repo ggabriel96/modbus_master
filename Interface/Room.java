@@ -1,12 +1,14 @@
 import java.util.*;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 abstract class Room{
     protected int info[];
     protected String name[];
-    public String roomName;
 
-    abstract JButton createButton();
+    public String roomName;
+    public BufferedImage picture;
+
     abstract void openInfoWindow();
     //Info and name have the same size, because the info[i] is associated to a name[i]
     public int getInfoSize(){

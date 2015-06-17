@@ -1,4 +1,7 @@
+import java.io.*;
 import javax.swing.*;
+import javax.imageio.*;
+import java.awt.image.BufferedImage;
 
 class PlayRoom extends Room{
     public PlayRoom(){
@@ -10,10 +13,13 @@ class PlayRoom extends Room{
         name[1] = "Lampada2";                info[1] =  0;
         name[2] = "Sensor de Alarme";        info[2] =  0;
         name[3] = "Temperatura ambiente";    info[3] = 28;
-    }
 
-    public JButton createButton(){
-        return new JButton("Play Room");
+        try{
+            picture = ImageIO.read(new File("assets/playroom.jpg"));
+        }catch(Exception e){
+            System.err.println("Couldn't find file");
+            System.exit(-1);
+        }
     }
 
     public void openInfoWindow(){

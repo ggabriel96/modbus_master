@@ -6,24 +6,23 @@ import javax.imageio.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
-public class Button extends JPanel
-                        implements ActionListener {
+public class Button extends JPanel implements ActionListener {
     protected JButton b1;
     private Room room;
 
     public Button(Room r) {
-        /*try{
+        this.room = r;
 
-            BufferedImage pic = ImageIO.read(new File("teste.png"));
-            ImageIcon picIcon = new ImageIcon(pic);
+    //    try{
+
+            ImageIcon picIcon = new ImageIcon(room.picture);
             this.b1 = new JButton(picIcon);
 
-        }catch(Exception e){
-            return;
-        }*/
+    //    }catch(Exception e){
+    //        return;
+    //    }
 
-        this.room = r;
-        this.b1 = new JButton(r.roomName);
+        //this.b1 = new JButton(r.roomName);
         //b1.setMnemonic(KeyEvent.VK_D); //Associa uma tecla de atalho (Desnecessario)
         b1.setActionCommand("showInfo"); //Cria uma ação para o botão
 

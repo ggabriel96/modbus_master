@@ -15,7 +15,7 @@ class Main{
 
     private void createAndShowGUI(){
         //Create and set up the window
-        JFrame frame = new JFrame("Teste :P");
+        JFrame frame = new JFrame("Casa");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
