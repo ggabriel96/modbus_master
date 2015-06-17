@@ -70,7 +70,7 @@ abstract class Room{
     }
 
     public void newTemperature(){
-        DataStruct tmp = new DataStruct(28, "Sensor de Temperatura");
+        DataStruct tmp = new DataStruct(28, "Temperatura ambiente");
         data.add(tmp);
     }
 
