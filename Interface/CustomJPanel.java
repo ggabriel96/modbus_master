@@ -12,11 +12,8 @@ import java.awt.image.BufferedImage;
 public class CustomJPanel extends JPanel implements MouseListener{
 
     private Image backgroundImage;
-    private GUI pFrame;
 
-    public CustomJPanel(String fileName, GUI principalFrame){
-
-        pFrame = principalFrame;
+    public CustomJPanel(String fileName){
 
         try{
             backgroundImage = ImageIO.read(new File(fileName));
@@ -65,7 +62,6 @@ public class CustomJPanel extends JPanel implements MouseListener{
                 + e.getClickCount() + ")", e);
 
                 if(e.getX() >= 240 && e.getX() <= 860 && e.getY() >= 13 && e.getY() <= 408){
-                    pFrame.poolSelected();
                     System.out.println("Oioioizinho");
                 }
     }
