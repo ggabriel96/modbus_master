@@ -19,7 +19,7 @@ class Main{
 
     private void createAndShowGUI(){
 
-        //PlayRoom playRoom = new PlayRoom();
+        /*//PlayRoom playRoom = new PlayRoom();
         Bathroom bath1, lavatorio;
         bath1 = new Bathroom(new File("assets/bathroom2.jpg"));
         lavatorio = new Bathroom(new File("assets/lavatorio.jpg"));
@@ -29,10 +29,6 @@ class Main{
         b2 = new Bedroom(new File("assets/bedroom2.jpg"));
 
         Circulacao circulacao = new Circulacao();
-
-        //Create and set up the window
-        JFrame frame = new JFrame("Casa");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Montando casa
         JPanel panel = new JPanel();
@@ -56,15 +52,20 @@ class Main{
         panel.add(tmp, BorderLayout.WEST);
 
         JPanel last = new JPanel();
-        last.add(panel);
+        last.add(panel);*/
 
         //Create and set up the content pane.
         //Button pR = new Button(playRoom);
         //pR.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(last);
+
+        //Create and set up the window
+        JFrame frame = new JFrame("Casa");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(new CustomJPanel("assets/planta-baixa.jpg"));
 
         //Display the window.
         frame.pack();
+	frame.setSize(1424, 700);
         frame.setVisible(true);
     }
 }
