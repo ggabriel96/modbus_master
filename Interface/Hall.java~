@@ -3,8 +3,8 @@ import javax.swing.*;
 import javax.imageio.*;
 import java.awt.image.BufferedImage;
 
-class Circulacao extends Room{
-    public Circulacao(){
+class Hall extends Room{
+    public Hall(){
         super();
 
         newLamp(1);

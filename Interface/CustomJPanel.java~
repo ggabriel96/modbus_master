@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 public class CustomJPanel extends JPanel implements MouseListener{
 
     private Image backgroundImage;
-    private Pool pool = new Pool();
+    private Circulacao pool = new Circulacao();
 
     public CustomJPanel(String fileName){
 

@@ -3,16 +3,19 @@ import javax.swing.*;
 import javax.imageio.*;
 import java.awt.image.BufferedImage;
 
-class Bedroom extends Room{
-    public Bedroom(File image){
+class DiningRoom extends Room{
+    public DiningRoom(){
         super();
 
         newLamp(1);
-        newAlarm();
-        newTemperature();
+        newLamp(2);
     }
 
     public void openInfoWindow(){
         new InfoWindow(this);
     }
 }
+
+
+
+

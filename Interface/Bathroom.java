@@ -9,13 +9,6 @@ class Bathroom extends Room{
         super();
 
         newLamp(1);
-
-        try{
-            picture = ImageIO.read(image);
-        }catch(Exception e){
-            System.err.println("Couldn't find file");
-            System.exit(-1);
-        }
     }
 
     public void openInfoWindow(){

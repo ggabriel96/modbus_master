@@ -1,3 +1,5 @@
+package room;
+
 import java.io.*;
 import java.awt.*;
 import java.util.*;
@@ -24,7 +26,7 @@ class InfoWindow implements ActionListener{
         panel = new JPanel();
 
         f.add(panel); //Adiciona painel ao frame
-        f.setSize(225, 300); //Tamanho da janela
+        f.setSize(200, 300); //Tamanho da janela
         //panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         //panel.setLayout(new BorderLayout());
 
