@@ -16,7 +16,6 @@ public class SerialWriter implements Runnable {
       
         for (i = 0, len = data.length(); i < len; i++) {
         	try {
-        		System.out.print(Integer.toHexString((int) data.charAt(i)));
         		this.out.write((int) data.charAt(i));
         	}
         	catch (IOException ioe) {
@@ -24,8 +23,6 @@ public class SerialWriter implements Runnable {
         		System.exit(-1);
         	}
         }
-        
-        System.out.println();
     }
     
     public void run () {
