@@ -11,6 +11,8 @@ public class Master {
 	private Thread thread;
 	private SerialPort port;
 	private String portName;
+	private SerialReader sr;
+	private SerialWriter swr;
 	private InputStream inputPort;
 	private OutputStream outputPort;
 	private CommPortIdentifier portId;
@@ -58,12 +60,17 @@ public class Master {
 	public void start() {
 		try {
 			this.inputPort = this.port.getInputStream();
-			this.port.addEventListener(new SerialReader(this.inputPort));
+			this.sr = new SerialReader(this.inputPort);
+			this.port.addEventListener(this.sr);
 			this.port.notifyOnDataAvailable(true);
 			
 			this.outputPort = this.port.getOutputStream();
-			this.thread = new Thread(new SerialWriter(this.outputPort));
+			this.swr = new SerialWriter(this.outputPort);
+			
+			this.thread = new Thread(swr);
 			this.thread.start();
+			
+			this.swr.write(":1106015E07D5AE\n\r");
 		}
 		catch (TooManyListenersException tmle) {
 			System.err.println("Too many listener methods on port");

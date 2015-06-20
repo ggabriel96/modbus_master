@@ -13,7 +13,8 @@ public class Main {
 			master.closePort();
 		}
 		catch (IOException ioe) {
-			
+			ioe.printStackTrace();
+			System.exit(-1);
 		}
 	}
 }
