@@ -6,6 +6,7 @@ import java.util.TooManyListenersException;
 import gnu.io.*;
 
 public class Master {
+	private long time;
 	private int timeout;
 	public int baudrate;
 	private Thread thread;
@@ -16,6 +17,7 @@ public class Master {
 	private InputStream inputPort;
 	private OutputStream outputPort;
 	private CommPortIdentifier portId;
+	private static final int SLAVE_ADDR = 0x3A;
 	
 	public Master(int timeout, int baudrate, String portName) throws IOException {
 		this.timeout = timeout;
@@ -57,6 +59,71 @@ public class Master {
 	    }
 	}
 	
+	private int[] checksum(int[] message) {
+		int sum = 0;
+		int[] result = new int[2];
+		
+		for (int i = 1; i < 7; i++) {
+			sum += message[i];
+		}
+		
+		sum %= 256;
+		sum = 0xFF - sum + 1;
+		
+		result[0] = sum / 16;
+		result[1] = sum % 16;
+		
+		return result;
+	}
+	
+	public void write(int reg, int data) {
+		String s;
+		int[] checksum;
+		String hexReg[] = Integer.toHexString(reg).split("");
+		String hexData[] = Integer.toHexString(data).split("");
+		
+		int message[] = new int[11];
+		message[0] = Master.SLAVE_ADDR; // :
+		message[1] = Master.SLAVE_ADDR;
+		message[2] = 0x06; // fn
+		if (hexReg.length > 1) {
+			message[3] = Integer.parseInt(hexReg[0]);
+			message[4] = Integer.parseInt(hexReg[1]);
+		}
+		else {
+			message[3] = 0;
+			message[4] = Integer.parseInt(hexReg[0]);
+		}
+		if (hexData.length > 1) {
+			message[5] = Integer.parseInt(hexData[0]);
+			message[6] = Integer.parseInt(hexData[1]);
+		}
+		else {
+			message[5] = 0;
+			message[6] = Integer.parseInt(hexData[0]);
+		}
+		checksum = this.checksum(message);
+		message[7] = checksum[0];
+		message[8] = checksum[1];
+		message[9] = '\r';
+		message[10] = '\n';
+		
+		s = (char)message[0] + "";
+		s += "3A";
+		s += "06";
+		s += (message[3] < 16 ? ("0" + Integer.toHexString(message[3])) : Integer.toHexString(message[3]));
+		s += (message[4] < 16 ? ("0" + Integer.toHexString(message[4])) : Integer.toHexString(message[4]));
+		s += (message[5] < 16 ? ("0" + Integer.toHexString(message[5])) : Integer.toHexString(message[5]));
+		s += (message[6] < 16 ? ("0" + Integer.toHexString(message[6])) : Integer.toHexString(message[6]));
+		s += (char) (Integer.toHexString(message[7]).charAt(0) - 'a' + 'A');
+		s += (char) (Integer.toHexString(message[8]).charAt(0) - 'a' + 'A');
+		s += "\r\n";
+		
+		this.time = System.nanoTime();
+		this.swr.write(s);
+		while (System.nanoTime() - this.time < 1e9); // wait for 1 second
+	}
+	
 	public void start() {
 		try {
 			this.inputPort = this.port.getInputStream();
@@ -70,7 +137,10 @@ public class Master {
 			this.thread = new Thread(swr);
 			this.thread.start();
 			
-			this.swr.write(":1106015E07D5AE\n\r");
+			this.write(1, 3);
+			this.write(1, 3);
+			this.write(1, 3);
+			this.write(1, 3);
 		}
 		catch (TooManyListenersException tmle) {
 			System.err.println("Too many listener methods on port");
