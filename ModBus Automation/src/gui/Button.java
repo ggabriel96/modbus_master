@@ -1,13 +1,14 @@
-import java.io.*;
-import java.awt.*;
-import java.util.*;
+package gui;
 import javax.swing.*;
-import javax.imageio.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 
 public class Button extends JPanel implements ActionListener {
-    protected JButton b1;
+    /**
+	 *
+	 */
+	//??
+	private static final long serialVersionUID = 1L;
+	protected JButton b1;
     private Room room;
 
     public Button(Room r) {

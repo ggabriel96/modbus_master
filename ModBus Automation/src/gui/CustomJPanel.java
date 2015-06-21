@@ -1,18 +1,21 @@
+package gui;
 import java.io.*;
 import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 import javax.imageio.*;
-import java.awt.event.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 
 
 public class CustomJPanel extends JPanel implements MouseListener{
 
-    private Image backgroundImage;
-    private Pool pool = new Pool();
+	//??
+	private static final long serialVersionUID = 1L;
+
+	private Image backgroundImage;
+    private Room pool = new Room();
+
+    //pool.addLamp(1, );
 
     public CustomJPanel(String fileName){
 
@@ -22,6 +25,13 @@ public class CustomJPanel extends JPanel implements MouseListener{
             System.out.println("Erro ao carregar imagem!");
             System.exit(-1);
         }
+
+        pool.newLamp(1, 13, 3);
+        pool.newLamp(2, 13, 4);
+        pool.newLamp(3, 13, 5);
+        pool.newAlarm(10, 1);
+        pool.newTemperature(0);
+
         addMouseListener(this);
     }
 
@@ -33,8 +43,8 @@ public class CustomJPanel extends JPanel implements MouseListener{
     }
 
     public void eventOutput(String eventDescription, MouseEvent e) {
-        System.out.println(eventDescription + " detected on " + e.getComponent().getClass().getName() + ".");
-        System.out.println("X: " + e.getX() + "      Y: " + e.getY());
+       // System.out.println(eventDescription + " detected on " + e.getComponent().getClass().getName() + ".");
+       // System.out.println("X: " + e.getX() + "      Y: " + e.getY());
     }
 
     public void mousePressed(MouseEvent e) {
@@ -59,13 +69,10 @@ public class CustomJPanel extends JPanel implements MouseListener{
     }
 
     public void mouseClicked(MouseEvent e) {
-        eventOutput("Mouse clicked (# of clicks: "
-                + e.getClickCount() + ")", e);
-
-                if(e.getX() >= 240 && e.getX() <= 860 && e.getY() >= 13 && e.getY() <= 408){
-			pool.openInfoWindow();                    
-			System.out.println("Oioioizinho");
-                }
+        eventOutput("Mouse clicked (# of clicks: " + e.getClickCount() + ")", e);
+        if(e.getX() >= 240 && e.getX() <= 860 && e.getY() >= 13 && e.getY() <= 408){
+	        pool.openInfoWindow();
+        }
     }
 
 }

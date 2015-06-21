@@ -16,7 +16,14 @@ public class SerialReader implements SerialPortEventListener {
         this.buffer = new byte[1024];
     }
     
+    private int getData(String input) {
+    	String tmp = input.substring(7, 11);
+    	System.out.println(tmp);
+    	return Integer.parseInt(tmp, 16);
+    }
+    
     public void serialEvent(SerialPortEvent arg0) {
+    	String rd;
         int data, len;
       
         try {
@@ -30,7 +37,8 @@ public class SerialReader implements SerialPortEventListener {
                 buffer[len++] = (byte) data;
             }
             
-            System.out.print(new String(buffer, 0, len));
+            rd = new String(buffer, 0, len);
+            gui.Main.dataRead = this.getData(rd);
         }
         catch (IOException ioe) {
             ioe.printStackTrace();

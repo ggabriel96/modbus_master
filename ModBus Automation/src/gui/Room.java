@@ -1,13 +1,14 @@
+package gui;
 import java.util.*;
-import javax.swing.*;
-import java.awt.image.BufferedImage;
 
-abstract class Room{
+class Room{
     protected ArrayList<DataStruct> data;
 
     public String roomName;
 
-    abstract void openInfoWindow();
+    void openInfoWindow(){
+        new InfoWindow(this);
+    }
     //Info and name have the same size, because the info[i] is associated to a name[i]
 
 
@@ -34,11 +35,11 @@ abstract class Room{
         return null; //Mudar para Exception... algum dia :P
     }
 
-    public int getInfo(String name){
+    public DataStruct getInfo(String name){
         for(int i = 0; i < this.getDataSize(); i++)
-            if((data.get(i).name).equals(name)) return data.get(i).info;
+            if((data.get(i).name).equals(name)) return data.get(i);
 
-        return -1; //Mudar para Exception... algum dia :P
+        return null; //Mudar para Exception... algum dia :P
     }
 
     public void setInfo(int index, int value){
@@ -58,30 +59,30 @@ abstract class Room{
         }
     }
 
-    public void newLamp(int num){
-        DataStruct tmp = new DataStruct(0, "Lampada" + num);
+    public void newLamp(int num, int reg, int bit){
+        DataStruct tmp = new DataStruct(0, reg, bit, "Lampada" + num);
         data.add(tmp);
     }
 
-    public void newAlarm(){
-        DataStruct tmp = new DataStruct(0, "Sensor de Alarme");
+    public void newAlarm(int reg, int bit){
+        DataStruct tmp = new DataStruct(0, reg, bit, "Sensor de Alarme");
         data.add(tmp);
     }
 
-    public void newTemperature(){
-        DataStruct tmp = new DataStruct(28, "Temperatura ambiente");
+    public void newTemperature(int reg){
+        DataStruct tmp = new DataStruct(28, reg, 0, "Temperatura ambiente");
         data.add(tmp);
     }
 
     public void newBath(){
-        DataStruct tmp = new DataStruct(0, "Nível de água da banheira");
-        data.add(tmp);
+        //DataStruct tmp = new DataStruct(0, "Nível de água da banheira");
+       // data.add(tmp);
     }
 
     public void newWaterIO(){
         //Trabalhar com porcentagem... (Vão entender?)
-        DataStruct tmp = new DataStruct(0, "Porcentagem de água quente");
-        data.add(tmp);
+        //DataStruct tmp = new DataStruct(0, "Porcentagem de água quente");
+        //data.add(tmp);
     }
 
 }

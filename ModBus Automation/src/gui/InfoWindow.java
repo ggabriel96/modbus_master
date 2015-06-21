@@ -1,15 +1,15 @@
-import java.io.*;
+package gui;
 import java.awt.*;
-import java.util.*;
+
 import javax.swing.*;
-import javax.imageio.*;
+
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 
 class InfoWindow implements ActionListener{
     private JFrame f;
-    //private JButton button;
     private JPanel panel;
+    private Room room;
+    //private JButton button;
     //JLabel picLabel;
 
     public InfoWindow(Room r){
@@ -20,8 +20,9 @@ class InfoWindow implements ActionListener{
             return;
         }*/
 
+    	panel = new JPanel();
         f = new JFrame(r.roomName);
-        panel = new JPanel();
+        room = r;
 
         f.add(panel); //Adiciona painel ao frame
         f.setSize(225, 300); //Tamanho da janela
@@ -38,12 +39,12 @@ class InfoWindow implements ActionListener{
 
                 JPanel button = new JPanel();
                 JButton option = new JButton("Ligar");
-                option.setActionCommand("Oi"); //Message send when the button is clicked
+                option.setActionCommand("Ligar" + r.getName(i).charAt(r.getName(i).length() - 1)); //Message send when the button is clicked
                 option.addActionListener(this);
                 button.add(option);
 
                 option = new JButton("Desligar");
-                option.setActionCommand("Tchau"); //Message send when the button is clicked
+                option.setActionCommand("Desligar" + r.getName(i).charAt(r.getName(i).length() - 1)); //Message send when the button is clicked
                 option.addActionListener(this);
                 button.add(option);
 
@@ -63,10 +64,20 @@ class InfoWindow implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        if ("Oi".equals(e.getActionCommand())) {
-            System.out.println("Oi");
-        }else if ("Tchau".equals(e.getActionCommand())){
-            System.out.println("Tchau");
+
+        if ("Ligar1".equals(e.getActionCommand())) {
+        	DataStruct tmp = room.getInfo("Lampada1");
+        	Main.master.write(tmp.reg, tmp.newBit(1));
+        } else if ("Ligar2".equals(e.getActionCommand())) {
+            System.out.println("Ligar2");
+        } else if ("Ligar3".equals(e.getActionCommand())) {
+            System.out.println("Ligar3");
+        } else if ("Desligar1".equals(e.getActionCommand())) {
+            System.out.println("Desligar1");
+        } else if ("Desligar2".equals(e.getActionCommand())) {
+            System.out.println("Desligar2");
+        } else if ("Desligar3".equals(e.getActionCommand())) {
+            System.out.println("Desligar3");
         }
     }
 

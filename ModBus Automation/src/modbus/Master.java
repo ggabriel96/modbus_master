@@ -87,20 +87,20 @@ public class Master {
 		message[1] = Master.SLAVE_ADDR;
 		message[2] = 0x06; // fn
 		if (hexReg.length > 1) {
-			message[3] = Integer.parseInt(hexReg[0]);
-			message[4] = Integer.parseInt(hexReg[1]);
+			message[3] = Integer.parseInt(hexReg[0], 16);
+			message[4] = Integer.parseInt(hexReg[1], 16);
 		}
 		else {
 			message[3] = 0;
-			message[4] = Integer.parseInt(hexReg[0]);
+			message[4] = Integer.parseInt(hexReg[0], 16);
 		}
 		if (hexData.length > 1) {
-			message[5] = Integer.parseInt(hexData[0]);
-			message[6] = Integer.parseInt(hexData[1]);
+			message[5] = Integer.parseInt(hexData[0], 16);
+			message[6] = Integer.parseInt(hexData[1], 16);
 		}
 		else {
 			message[5] = 0;
-			message[6] = Integer.parseInt(hexData[0]);
+			message[6] = Integer.parseInt(hexData[0], 16);
 		}
 		checksum = this.checksum(message);
 		message[7] = checksum[0];
@@ -118,9 +118,11 @@ public class Master {
 		s += (message[7] >= 10 ? ((char) (Integer.toHexString(message[7]).charAt(0) - 'a' + 'A')) : ((char)(message[7] + '0')));
 		s += (message[8] >= 10 ? ((char) (Integer.toHexString(message[8]).charAt(0) - 'a' + 'A')) : ((char)(message[8] + '0')));
 		s += "\r\n";
+		
+		System.out.println("write: " + s);
 
 		this.time = System.nanoTime();
-		this.swr.write(s);
+		this.swr.write(s.toUpperCase());
 		while (System.nanoTime() - this.time < 1e9); // wait for 1 second
 	}
 
@@ -135,20 +137,20 @@ public class Master {
 		message[1] = Master.SLAVE_ADDR;
 		message[2] = 0x03; // fn
 		if (hexReg.length > 1) {
-			message[3] = Integer.parseInt(hexReg[0]);
-			message[4] = Integer.parseInt(hexReg[1]);
+			message[3] = Integer.parseInt(hexReg[0], 16);
+			message[4] = Integer.parseInt(hexReg[1], 16);
 		}
 		else {
 			message[3] = 0;
-			message[4] = Integer.parseInt(hexReg[0]);
+			message[4] = Integer.parseInt(hexReg[0], 16);
 		}
 		if (hexQtty.length > 1) {
-			message[5] = Integer.parseInt(hexQtty[0]);
-			message[6] = Integer.parseInt(hexQtty[1]);
+			message[5] = Integer.parseInt(hexQtty[0], 16);
+			message[6] = Integer.parseInt(hexQtty[1], 16);
 		}
 		else {
 			message[5] = 0;
-			message[6] = Integer.parseInt(hexQtty[0]);
+			message[6] = Integer.parseInt(hexQtty[0], 16);
 		}
 		checksum = this.checksum(message);
 		message[7] = checksum[0];
@@ -166,9 +168,11 @@ public class Master {
 		s += (message[7] >= 10 ? ((char) (Integer.toHexString(message[7]).charAt(0) - 'a' + 'A')) : ((char)(message[7] + '0')));
 		s += (message[8] >= 10 ? ((char) (Integer.toHexString(message[8]).charAt(0) - 'a' + 'A')) : ((char)(message[8] + '0')));
 		s += "\r\n";
+		
+		System.out.println("read: " + s);
 
 		this.time = System.nanoTime();
-		this.swr.write(s);
+		this.swr.write(s.toUpperCase());
 		while (System.nanoTime() - this.time < 1e9); // wait for 1 second
 	}
 
@@ -185,10 +189,10 @@ public class Master {
 			this.thread = new Thread(swr);
 			this.thread.start();
 
-			this.write(1, 3);
-			this.write(2, 4);
-			this.write(3, 5);
-			this.read(1, 3);
+//			this.write(1, 3);
+//			this.write(2, 4);
+//			this.write(3, 5);
+//			this.read(1, 3);
 		}
 		catch (TooManyListenersException tmle) {
 			System.err.println("Too many listener methods on port");
