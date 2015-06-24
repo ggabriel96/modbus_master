@@ -26,7 +26,7 @@ class DataStruct{
     		ret[j] = tmp.charAt(i) - '0';
     	}
 
-    	ret[bit] = data;
+    	ret[this.bit] = data;
 
     	for (i = ret.length - 1, pot = 1, res = 0; i >=0; i--, pot *= 2) {
     		res += ret[i] * pot;
