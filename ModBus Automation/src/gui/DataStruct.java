@@ -13,21 +13,22 @@ class DataStruct{
     }
 
     public int newBit(int data){
-    	int ret[], res = 0;
     	String tmp;
+    	int i, j, res, pot, ret[];
+    	
     	Main.master.read(reg, 1);
-    	while(Main.dataRead == null); //Verficar tempo
+    	
+    	while (Main.dataRead == null); //Verficar tempo
     	tmp = Integer.toBinaryString(Main.dataRead);
     	ret = new int[8];
     	
-    	int j = 7;
-    	for(int i = tmp.length() - 1; i > tmp.length() - 9; i--, j--){
+    	for (i = tmp.length() - 1, j = 7; i > tmp.length() - 9 && i >= 0; i--, j--) {
     		ret[j] = tmp.charAt(i) - '0';
     	}
 
     	ret[bit] = data;
 
-    	for(int i = ret.length - 1, pot = 1; i >=0; i--, pot *= 2){
+    	for (i = ret.length - 1, pot = 1, res = 0; i >=0; i--, pot *= 2) {
     		res += ret[i] * pot;
     	}
     	
