@@ -4,8 +4,7 @@ class DataStruct{
     String name;
     int reg, bit; //Ignore por enquanto :P Explico quando nos reunirmos
 
-    public DataStruct(int info, int reg, int bit, String name){
-    	//Main.master.write(reg, 0);
+    public DataStruct(int info, int reg, int bit, String name) {
         this.info = info;
         this.name = name;
         this.reg = reg;

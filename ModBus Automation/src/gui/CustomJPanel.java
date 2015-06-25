@@ -7,30 +7,37 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
-public class CustomJPanel extends JPanel implements MouseListener{
-
-	//??
+public class CustomJPanel extends JPanel implements MouseListener {
+	public static final int POOLW = 0, BATH2W = 1;
 	private static final long serialVersionUID = 1L;
-
+	private Room pool = new Room("Piscina");
+	private Room bathroom2 = new Room("Banheiro da suite");
 	private Image backgroundImage;
-    private Room pool = new Room();
+	private static boolean windows[];
 
-    //pool.addLamp(1, );
-
-    public CustomJPanel(String fileName){
-
-        try{
+    public CustomJPanel(String fileName) {
+        try {
             backgroundImage = ImageIO.read(new File(fileName));
-        }catch(Exception e){
+        }
+        catch (Exception e) {
             System.out.println("Erro ao carregar imagem!");
             System.exit(-1);
         }
-
-        pool.newLamp(1, 13, 3);
-        pool.newLamp(2, 13, 4);
-        pool.newLamp(3, 13, 5);
-        pool.newAlarm(10, 1);
-        pool.newTemperature(0);
+        
+        CustomJPanel.windows = new boolean[10];
+        for (int i = 0; i < 10; i++) windows[i] = false;
+        
+        this.pool.newLamp(1, 13, 3);
+        this.pool.newLamp(2, 13, 4);
+        this.pool.newLamp(3, 13, 5);
+        this.pool.newWaterIO(8, 4, "quente");
+        this.pool.newWaterIO(8, 5, "fria");
+        this.pool.newTemperature(0, "da agua");
+        this.pool.newAlarm(10, 1);
+        
+        this.bathroom2.newLamp(1, 15, 4);
+        this.bathroom2.newBath(7);
+        this.bathroom2.newTemperature(1, "da agua da banheira");
 
         addMouseListener(this);
     }
@@ -43,36 +50,45 @@ public class CustomJPanel extends JPanel implements MouseListener{
     }
 
     public void eventOutput(String eventDescription, MouseEvent e) {
-       // System.out.println(eventDescription + " detected on " + e.getComponent().getClass().getName() + ".");
-       // System.out.println("X: " + e.getX() + "      Y: " + e.getY());
+//    	System.out.println(eventDescription + " detected on " + e.getComponent().getClass().getName() + ".");
+//       System.out.println("X: " + e.getX() + "      Y: " + e.getY());
     }
 
     public void mousePressed(MouseEvent e) {
-        eventOutput("Mouse pressed (# of clicks: "
-                + e.getClickCount() + ")", e);
-
-
     }
 
     public void mouseReleased(MouseEvent e) {
-        eventOutput("Mouse released (# of clicks: "
-                + e.getClickCount() + ")", e);
+    	this.eventOutput("Mouse clicked (# of clicks: " + e.getClickCount() + ")", e);
+        if (e.getX() >= 240 && e.getX() <= 860 && e.getY() >= 13 && e.getY() <= 408 && !windows[CustomJPanel.POOLW]) {
+        	CustomJPanel.windows[CustomJPanel.POOLW] = true;
+	        this.pool.openInfoWindow();
+        }
+        else if (e.getX() >= 15 && e.getX() <= 180 && e.getY() >= 570 && e.getY() <= 660 && !windows[CustomJPanel.BATH2W]) {
+        	CustomJPanel.windows[CustomJPanel.BATH2W] = true;
+        	this.bathroom2.openInfoWindow();
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
-        eventOutput("Mouse entered", e);
-
     }
 
     public void mouseExited(MouseEvent e) {
-        eventOutput("Mouse exited", e);
+    }
+    
+    public static void closed(JFrame f) {
+    	switch (f.getTitle()) {
+    		case "Piscina":
+    			CustomJPanel.windows[CustomJPanel.POOLW] = false;
+    			break;
+    		case "Banheiro da suite":
+    			CustomJPanel.windows[CustomJPanel.BATH2W] = false;
+    			break;
+    		default:
+    			break;
+    	}
     }
 
     public void mouseClicked(MouseEvent e) {
-        eventOutput("Mouse clicked (# of clicks: " + e.getClickCount() + ")", e);
-        if(e.getX() >= 240 && e.getX() <= 860 && e.getY() >= 13 && e.getY() <= 408){
-	        pool.openInfoWindow();
-        }
     }
 
 }

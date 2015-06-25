@@ -3,7 +3,6 @@ import java.util.*;
 
 class Room{
     protected ArrayList<DataStruct> data;
-
     public String roomName;
 
     void openInfoWindow(){
@@ -12,8 +11,9 @@ class Room{
     //Info and name have the same size, because the info[i] is associated to a name[i]
 
 
-    public Room(){
-        data = new ArrayList<DataStruct>();
+    public Room(String name) {
+        this.data = new ArrayList<DataStruct>();
+        this.roomName = name;
     }
 
 
@@ -59,30 +59,29 @@ class Room{
         }
     }
 
-    public void newLamp(int num, int reg, int bit){
-        DataStruct tmp = new DataStruct(0, reg, bit, "Lampada" + num);
+    public void newLamp(int num, int reg, int bit) {
+        DataStruct tmp = new DataStruct(0, reg, bit, "Lampada " + num);
         data.add(tmp);
     }
-
+    
     public void newAlarm(int reg, int bit){
         DataStruct tmp = new DataStruct(0, reg, bit, "Sensor de Alarme");
         data.add(tmp);
     }
 
-    public void newTemperature(int reg){
-        DataStruct tmp = new DataStruct(28, reg, 0, "Temperatura ambiente");
+    public void newTemperature(int reg, String s) {
+        DataStruct tmp = new DataStruct(28, reg, 0, "Temperatura " + s);
         data.add(tmp);
     }
 
-    public void newBath(){
-        //DataStruct tmp = new DataStruct(0, "Nível de água da banheira");
-       // data.add(tmp);
+    public void newBath(int reg) {
+    	DataStruct tmp = new DataStruct(0, reg, 0, "Nivel da agua da banheira");
+    	data.add(tmp);
     }
 
-    public void newWaterIO(){
-        //Trabalhar com porcentagem... (Vão entender?)
-        //DataStruct tmp = new DataStruct(0, "Porcentagem de água quente");
-        //data.add(tmp);
+    public void newWaterIO(int reg, int bit, String s) {
+        DataStruct tmp = new DataStruct(0, reg, bit, "Agua " + s);
+        data.add(tmp);
     }
 
 }

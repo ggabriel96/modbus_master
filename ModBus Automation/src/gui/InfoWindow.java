@@ -13,6 +13,7 @@ class InfoWindow implements ActionListener {
     //JLabel picLabel;
 
     public InfoWindow(Room r) {
+    	int i, j;
         /*try{
             BufferedImage pic = ImageIO.read(new File("teste.png"));
             button = new JButton(new ImageIcon(pic));
@@ -25,33 +26,48 @@ class InfoWindow implements ActionListener {
         this.f = new JFrame(this.room.roomName);
 
         this.f.add(panel); //Adiciona painel ao frame
-        this.f.setSize(225, 300); //Tamanho da janela
         //panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         //panel.setLayout(new BorderLayout());
 
-        for (int i = 0; i < this.room.getDataSize(); i++) {
+        for (i = 0, j = 0; i < this.room.getDataSize(); i++, j++) {
             JPanel tmp = new JPanel(); //Painel para campo[i]
             tmp.setLayout(new BorderLayout());
 
-            if (this.room.getName(i).matches("Lampada[0-9]") || this.room.getName(i).matches("Sensor de Alarme")) {
+            if (this.room.getName(i).matches("Lampada [0-9]") || (this.room.getName(i).matches("Sensor de Alarme") && this.room.roomName.equals("Garagem")) || (this.room.getName(i).contains("Agua"))) {
                 //if r.getInfo(i) is equal to 0, the light is off, else the ligth is on
                 tmp.add(new JLabel(this.room.getName(i) + ": " + (this.room.getInfo(i) == 0 ? "Desligado" : "Ligado")), BorderLayout.NORTH);
 
                 JPanel button = new JPanel();
                 JButton option = new JButton("Ligar");
-                option.setActionCommand("Ligar" + this.room.getName(i).charAt(this.room.getName(i).length() - 1)); //Message send when the button is clicked
+                option.setActionCommand("Ligar" + this.room.getName(i).charAt(this.room.getName(i).length() - 1)); //Message sent when the button is clicked
                 option.addActionListener(this);
                 button.add(option);
 
                 option = new JButton("Desligar");
-                option.setActionCommand("Desligar" + this.room.getName(i).charAt(this.room.getName(i).length() - 1)); //Message send when the button is clicked
+                option.setActionCommand("Desligar" + this.room.getName(i).charAt(this.room.getName(i).length() - 1)); //Message sent when the button is clicked
                 option.addActionListener(this);
                 button.add(option);
 
                 tmp.add(button, BorderLayout.CENTER);
+                
+                j++;
             }
-            else if (this.room.getName(i).matches("Temperatura ambiente")) {
-                tmp.add(new JLabel(this.room.getName(i) + ": " + this.room.getInfo(i)), BorderLayout.NORTH);
+            else if (this.room.getName(i).matches("Sensor de Alarme")) {
+            	tmp.add(new JLabel(this.room.getName(i) + ": " + (this.room.getInfo(i) == 0 ? "Desligado" : "Ligado")), BorderLayout.NORTH);
+            }
+            else if (this.room.getName(i).contains("Temperatura") || this.room.getName(i).contains("Nivel")) {
+            	tmp.add(new JLabel(this.room.getName(i) + ": " + this.room.getInfo(i)), BorderLayout.NORTH);
+            	
+            	if (this.room.getName(i).matches("Nivel da agua da banheira")) {
+            		JPanel button = new JPanel();
+                    JButton option = new JButton("Esvaziar");
+                    option.setActionCommand("Esvaziar"); //Message sent when the button is clicked
+                    option.addActionListener(this);
+                    button.add(option);
+                    
+                    tmp.add(button, BorderLayout.CENTER);
+                    j++;
+            	}
             }
             else {
                 //Agua (??);
@@ -62,6 +78,14 @@ class InfoWindow implements ActionListener {
         //panel.add(button); // Adiciona botão ao painel
         //f.add(picLabel);
         this.f.setVisible(true);
+        this.f.setSize(270, j * 31); //Tamanho da janela
+        
+        this.f.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            	CustomJPanel.closed((JFrame)windowEvent.getComponent());
+            }
+        });
     }
     
     private void updateLabel(String obj, String info) {
@@ -78,36 +102,65 @@ class InfoWindow implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-
         if ("Ligar1".equals(e.getActionCommand())) {
-        	DataStruct tmp = this.room.getInfo("Lampada1");
+        	DataStruct tmp = this.room.getInfo("Lampada 1");
         	Main.master.write(tmp.reg, tmp.newBit(1));
-        	this.updateLabel("Lampada1", "Ligado");
+        	this.updateLabel("Lampada 1", "Ligado");
         }
         else if ("Ligar2".equals(e.getActionCommand())) {
-        	DataStruct tmp = this.room.getInfo("Lampada2");
+        	DataStruct tmp = this.room.getInfo("Lampada 2");
         	Main.master.write(tmp.reg, tmp.newBit(1));
-        	this.updateLabel("Lampada2", "Ligado");
+        	this.updateLabel("Lampada 2", "Ligado");
         }
         else if ("Ligar3".equals(e.getActionCommand())) {
-        	DataStruct tmp = this.room.getInfo("Lampada3");
+        	DataStruct tmp = this.room.getInfo("Lampada 3");
         	Main.master.write(tmp.reg, tmp.newBit(1));
-        	this.updateLabel("Lampada3", "Ligado");
+        	this.updateLabel("Lampada 3", "Ligado");
+        }
+        // ligar agua quente da piscina
+        else if ("Ligare".equals(e.getActionCommand())) {
+        	DataStruct tmp = this.room.getInfo("Agua quente");
+        	Main.master.write(tmp.reg, tmp.newBit(1));
+        	this.updateLabel("Agua quente", "Ligado");
+        }
+        // desligar agua fria da piscina
+        else if ("Ligara".equals(e.getActionCommand())) {
+        	DataStruct tmp = this.room.getInfo("Agua fria");
+        	Main.master.write(tmp.reg, tmp.newBit(1));
+        	this.updateLabel("Agua fria", "Ligado");
         }
         else if ("Desligar1".equals(e.getActionCommand())) {
-        	DataStruct tmp = this.room.getInfo("Lampada1");
+        	DataStruct tmp = this.room.getInfo("Lampada 1");
         	Main.master.write(tmp.reg, tmp.newBit(0));
-        	this.updateLabel("Lampada1", "Desligado");
+        	this.updateLabel("Lampada 1", "Desligado");
         }
         else if ("Desligar2".equals(e.getActionCommand())) {
-        	DataStruct tmp = this.room.getInfo("Lampada2");
+        	DataStruct tmp = this.room.getInfo("Lampada 2");
         	Main.master.write(tmp.reg, tmp.newBit(0));
-        	this.updateLabel("Lampada2", "Desligado");
+        	this.updateLabel("Lampada 2", "Desligado");
         }
         else if ("Desligar3".equals(e.getActionCommand())) {
-        	DataStruct tmp = this.room.getInfo("Lampada3");
+        	DataStruct tmp = this.room.getInfo("Lampada 3");
         	Main.master.write(tmp.reg, tmp.newBit(0));
-        	this.updateLabel("Lampada3", "Desligado");
+        	this.updateLabel("Lampada 3", "Desligado");
+        }
+        // desligar agua quente da piscina
+        else if ("Desligare".equals(e.getActionCommand())) {
+        	DataStruct tmp = this.room.getInfo("Agua quente");
+        	Main.master.write(tmp.reg, tmp.newBit(0));
+        	this.updateLabel("Agua quente", "Desligado");
+        }
+        // desligar agua fria da piscina
+        else if ("Desligara".equals(e.getActionCommand())) {
+        	DataStruct tmp = this.room.getInfo("Agua fria");
+        	Main.master.write(tmp.reg, tmp.newBit(0));
+        	this.updateLabel("Agua fria", "Desligado");
+        }
+        else if ("Esvaziar".equals(e.getActionCommand())) {
+        	DataStruct tmp = this.room.getInfo("Nivel da agua da banheira");
+        	Main.master.write(tmp.reg, tmp.newBit(1));
+        	Main.master.write(7, 0);
+        	this.updateLabel("Nivel da agua da banheira", tmp.info + "");
         }
     }
 
