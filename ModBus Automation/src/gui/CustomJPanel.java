@@ -170,6 +170,58 @@ public class CustomJPanel extends JPanel implements MouseListener {
         	CustomJPanel.windows[CustomJPanel.POOL_BALC] = true;
         	this.rooms[CustomJPanel.POOL_BALC].openInfoWindow();
         }
+        else if (e.getX() >= 190 && e.getX() <= 335 && e.getY() >= 475 && e.getY() <= 660 && !windows[CustomJPanel.BEDROOM2]) {
+        	CustomJPanel.windows[CustomJPanel.BEDROOM2] = true;
+        	this.rooms[CustomJPanel.BEDROOM2].openInfoWindow();
+        }
+        else if (e.getX() >= 240 && e.getX() <= 575 && e.getY() >= 415 && e.getY() <= 460 && !windows[CustomJPanel.HALL]) {
+        	CustomJPanel.windows[CustomJPanel.HALL] = true;
+        	this.rooms[CustomJPanel.HALL].openInfoWindow();
+        }
+        else if (e.getX() >= 345 && e.getX() <= 420 && e.getY() >= 475 && e.getY() <= 560 && !windows[CustomJPanel.WASHROOM]) {
+        	CustomJPanel.windows[CustomJPanel.WASHROOM] = true;
+        	this.rooms[CustomJPanel.WASHROOM].openInfoWindow();
+        }
+        else if (e.getX() >= 345 && e.getX() <= 420 && e.getY() >= 570 && e.getY() <= 660 && !windows[CustomJPanel.BATH1]) {
+        	CustomJPanel.windows[CustomJPanel.BATH1] = true;
+        	this.rooms[CustomJPanel.BATH1].openInfoWindow();
+        }
+        else if (e.getX() >= 430 && e.getX() <= 575 && e.getY() >= 475 && e.getY() <= 660 && !windows[CustomJPanel.BEDROOM1]) {
+        	CustomJPanel.windows[CustomJPanel.BEDROOM1] = true;
+        	this.rooms[CustomJPanel.BEDROOM1].openInfoWindow();
+        }
+        else if (e.getX() >= 590 && e.getX() <= 860 && e.getY() >= 415 && e.getY() <= 660 && !windows[CustomJPanel.PLAYROOM]) {
+        	CustomJPanel.windows[CustomJPanel.PLAYROOM] = true;
+        	this.rooms[CustomJPanel.PLAYROOM].openInfoWindow();
+        }
+        else if (e.getX() >= 870 && e.getX() <= 1010 && e.getY() >= 95 && e.getY() <= 370 && !windows[CustomJPanel.KITCHEN]) {
+        	CustomJPanel.windows[CustomJPanel.KITCHEN] = true;
+        	this.rooms[CustomJPanel.KITCHEN].openInfoWindow();
+        }
+        else if (e.getX() >= 1025 && e.getX() <= 1130 && e.getY() >= 95 && e.getY() <= 200 && !windows[CustomJPanel.LAUNDRY]) {
+        	CustomJPanel.windows[CustomJPanel.LAUNDRY] = true;
+        	this.rooms[CustomJPanel.LAUNDRY].openInfoWindow();
+        }
+        else if (e.getX() >= 1060 && e.getX() <= 1130 && e.getY() >= 265 && e.getY() <= 360 && !windows[CustomJPanel.LAVATORY]) {
+        	CustomJPanel.windows[CustomJPanel.LAVATORY] = true;
+        	this.rooms[CustomJPanel.LAVATORY].openInfoWindow();
+        }
+        else if (e.getX() >= 870 && e.getX() <= 1030 && e.getY() >= 375 && e.getY() <= 665 && !windows[CustomJPanel.DINING]) {
+        	CustomJPanel.windows[CustomJPanel.DINING] = true;
+        	this.rooms[CustomJPanel.DINING].openInfoWindow();
+        }
+        else if (e.getX() >= 1031 && e.getX() <= 1200 && e.getY() >= 375 && e.getY() <= 665 && !windows[CustomJPanel.LIVING]) {
+        	CustomJPanel.windows[CustomJPanel.LIVING] = true;
+        	this.rooms[CustomJPanel.LIVING].openInfoWindow();
+        }
+        else if (e.getX() >= 1140 && e.getX() <= 1400 && e.getY() >= 95 && e.getY() <= 360 && !windows[CustomJPanel.GARAGE]) {
+        	CustomJPanel.windows[CustomJPanel.GARAGE] = true;
+        	this.rooms[CustomJPanel.GARAGE].openInfoWindow();
+        }
+        else if (e.getX() >= 1290 && e.getX() <= 1400 && e.getY() >= 375 && e.getY() <= 485 && !windows[CustomJPanel.BALCONY]) {
+        	CustomJPanel.windows[CustomJPanel.BALCONY] = true;
+        	this.rooms[CustomJPanel.BALCONY].openInfoWindow();
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -185,6 +237,60 @@ public class CustomJPanel extends JPanel implements MouseListener {
     			break;
     		case "Banheiro da suite":
     			CustomJPanel.windows[CustomJPanel.BATH2] = false;
+    			break;
+    		case "Deposito":
+    			CustomJPanel.windows[CustomJPanel.STORAGE] = false;
+    			break;
+    		case "Banheiro externo":
+    			CustomJPanel.windows[CustomJPanel.BATH3] = false;
+    			break;
+    		case "Varanda da piscina":
+    			CustomJPanel.windows[CustomJPanel.POOL_BALC] = false;
+    			break;
+    		case "Suite":
+    			CustomJPanel.windows[CustomJPanel.SUITE] = false;
+    			break;
+    		case "Closet":
+    			CustomJPanel.windows[CustomJPanel.CLOSET] = false;
+    			break;
+    		case "Dormitorio 2":
+    			CustomJPanel.windows[CustomJPanel.BEDROOM2] = false;
+    			break;
+    		case "Banheiro dos dormitorios":
+    			CustomJPanel.windows[CustomJPanel.BATH1] = false;
+    			break;
+    		case "Lavatorio":
+    			CustomJPanel.windows[CustomJPanel.WASHROOM] = false;
+    			break;
+    		case "Circulacao":
+    			CustomJPanel.windows[CustomJPanel.HALL] = false;
+    			break;
+    		case "Dormitorio 1":
+    			CustomJPanel.windows[CustomJPanel.BEDROOM1] = false;
+    			break;
+    		case "Sala de Jogos":
+    			CustomJPanel.windows[CustomJPanel.PLAYROOM] = false;
+    			break;
+    		case "Sala de Jantar":
+    			CustomJPanel.windows[CustomJPanel.DINING] = false;
+    			break;
+    		case "Sala de Estar":
+    			CustomJPanel.windows[CustomJPanel.LIVING] = false;
+    			break;
+    		case "Varanda":
+    			CustomJPanel.windows[CustomJPanel.BALCONY] = false;
+    			break;
+    		case "Cozinha":
+    			CustomJPanel.windows[CustomJPanel.KITCHEN] = false;
+    			break;
+    		case "Lavabo":
+    			CustomJPanel.windows[CustomJPanel.LAVATORY] = false;
+    			break;
+    		case "Lavanderia":
+    			CustomJPanel.windows[CustomJPanel.LAUNDRY] = false;
+    			break;
+    		case "Garagem":
+    			CustomJPanel.windows[CustomJPanel.GARAGE] = false;
     			break;
     		default:
     			break;

@@ -1,5 +1,7 @@
 package gui;
 import modbus.*;
+
+import java.awt.Dimension;
 import java.io.*;
 import javax.swing.*;
 //import javax.swing.JOptionPane;
@@ -51,7 +53,9 @@ public class Main{
         });
 
         //Display the window.
-        frame.pack();
+//        frame.pack();
+	    frame.setResizable(false);
+	    frame.setMinimumSize(new Dimension(1424, 700));
 	    frame.setSize(1424, 700);
         frame.setVisible(true);
     }
