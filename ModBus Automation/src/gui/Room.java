@@ -10,12 +10,18 @@ class Room{
     }
     //Info and name have the same size, because the info[i] is associated to a name[i]
 
-
-    public Room(String name) {
-        this.data = new ArrayList<DataStruct>();
-        this.roomName = name;
+    public Room() {
+    	this.data = new ArrayList<DataStruct>();
     }
 
+    public Room(String name) {
+        this();
+        this.roomName = name;
+    }
+    
+    public void setName(String name) {
+    	this.roomName = name;
+    }
 
     public int getDataSize(){
         return data.size();

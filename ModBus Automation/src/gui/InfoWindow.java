@@ -78,7 +78,7 @@ class InfoWindow implements ActionListener {
         //panel.add(button); // Adiciona botão ao painel
         //f.add(picLabel);
         this.f.setVisible(true);
-        this.f.setSize(270, j * 31); //Tamanho da janela
+        this.f.setSize(270, j * 33); //Tamanho da janela
         
         this.f.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
