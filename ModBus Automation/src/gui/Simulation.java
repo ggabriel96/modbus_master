@@ -1,9 +1,7 @@
 package gui;
 
-//import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.Random;
-//import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -28,7 +26,6 @@ public class Simulation extends Thread {
 	
 	@Override
 	public void run() {
-		int newValue;
 		DataStruct d1 = null, d2 = null;
 		
 		while (true) {
@@ -52,10 +49,14 @@ public class Simulation extends Thread {
 		                	Main.master.write(7, this.bathWater % 65536);
 	                	}
 	                }
-	                else if ((d1 = this.window.room.getInfo("Sensor de Alarme")) != null) {
-	                	newValue = this.random.nextInt(2);
-	                	d1.info = newValue;
-	                	Main.master.write(d1.reg, d1.newBit(newValue));
+	                
+	                if ((d1 = this.window.room.getInfo("Sensor de Alarme")) != null) {
+	                	d1.info = this.random.nextInt(2);
+	                	Main.master.write(d1.reg, d1.newBit(d1.info));
+	                }
+	                if ((d2 = this.window.room.getInfo("Temperatura")) != null) {
+	                	d2.info = 20 + this.random.nextInt(11);
+	                	Main.master.write(d2.reg, d2.info);
 	                }
 				}
 				
@@ -72,6 +73,9 @@ public class Simulation extends Thread {
 			    					if (d1.info == 1) {
 				                		Main.triggerAlarm();
 				                	}
+			    				}
+			    				else if (label.contains("Temperatura")) {
+			    					((JLabel)c2).setText(label.substring(0, label.indexOf(":") + 2) + d2.info);
 			    				}
 			    			}
 			    		}

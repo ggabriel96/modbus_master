@@ -43,7 +43,7 @@ class Room{
 
     public DataStruct getInfo(String name){
         for(int i = 0; i < this.getDataSize(); i++)
-            if((data.get(i).name).equals(name)) return data.get(i);
+            if(data.get(i).name.contains(name)) return data.get(i);
 
         return null;
     }

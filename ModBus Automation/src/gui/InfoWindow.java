@@ -71,6 +71,8 @@ class InfoWindow implements ActionListener {
             this.panel.add(tmp);
         }
         
+//        this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
+        
         this.f.setVisible(true);
         this.f.setSize(270, j * 20); //Tamanho da janela
         

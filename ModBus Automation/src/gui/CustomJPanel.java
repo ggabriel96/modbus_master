@@ -280,6 +280,10 @@ public class CustomJPanel extends JPanel implements MouseListener {
     public static void closed(JFrame f) {
     	int i = CustomJPanel.arrayIndex(f);
     	CustomJPanel.windows[i] = false;
+    	
+    	if (!f.getTitle().equals("Banheiro da suite")) {
+    		InfoWindow.threads[i].stop();
+    	}
     }
 
     public void mouseClicked(MouseEvent e) {

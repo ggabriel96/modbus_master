@@ -10,10 +10,10 @@ import java.io.*;
 import javax.swing.*;
 
 public class Main implements ActionListener {
-	public static JLabel alarmLabel;
-    public static Master master;
+	public static Master master;
     public static DataStruct alarm;
     public static Integer dataRead;
+    public static JLabel alarmLabel;
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
