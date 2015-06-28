@@ -69,6 +69,9 @@ public class Simulation extends Thread {
 			    				}
 			    				else if (label.contains("Alarme")) {
 			    					((JLabel)c2).setText(label.substring(0, label.indexOf(":") + 2) + (d1.info == 0 ? "Sem movimento" : "Com movimento"));
+			    					if (d1.info == 1) {
+				                		Main.triggerAlarm();
+				                	}
 			    				}
 			    			}
 			    		}

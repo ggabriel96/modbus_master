@@ -10,7 +10,7 @@ import java.io.*;
 import javax.swing.*;
 
 public class Main implements ActionListener {
-	private JLabel alarmLabel;
+	public static JLabel alarmLabel;
     public static Master master;
     public static DataStruct alarm;
     public static Integer dataRead;
@@ -44,14 +44,20 @@ public class Main implements ActionListener {
         }
     }
     
+    public static void triggerAlarm() {
+    	if (Main.alarmLabel.getText().equals("ALARME: LIGADO")) {
+    		Main.alarmLabel.setText("ALARME: DISPARADO");
+    	}
+    }
+    
     public void actionPerformed(ActionEvent e) {
-    	if (e.getActionCommand().equals("Ligar")) {
+    	if (e.getActionCommand().equals("Ligar") && !Main.alarmLabel.getText().contains("DISPARADO")) {
         	Main.master.write(Main.alarm.reg, Main.alarm.newBit(1));
-        	this.alarmLabel.setText("ALARME: LIGADO");
+        	Main.alarmLabel.setText("ALARME: LIGADO");
     	}
     	else if (e.getActionCommand().equals("Desligar")) {
     		Main.master.write(Main.alarm.reg, Main.alarm.newBit(0));
-    		this.alarmLabel.setText("ALARME: DESLIGADO");
+    		Main.alarmLabel.setText("ALARME: DESLIGADO");
     	}
     }
 
@@ -87,7 +93,7 @@ public class Main implements ActionListener {
         alarmOff.setBounds(90 + insets.left, 45 + insets.top, size.width, size.height);
         
         size = alarmLabel.getPreferredSize();
-        alarmLabel.setBounds(35 + insets.left, 25 + insets.top, size.width, size.height);
+        alarmLabel.setBounds(35 + insets.left, 25 + insets.top, size.width + 20, size.height);
         
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
