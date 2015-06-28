@@ -1,8 +1,6 @@
 package gui;
 import java.awt.*;
-
 import javax.swing.*;
-
 import java.awt.event.*;
 
 class InfoWindow implements ActionListener {
@@ -88,7 +86,7 @@ class InfoWindow implements ActionListener {
         });
     }
     
-    private void updateLabel(String obj, String info) {
+    public void updateLabel(String obj, String info) {
     	for (Component c1: this.panel.getComponents()) {
     		if (c1 instanceof JPanel) {
 	    		for (Component c2: ((JPanel)c1).getComponents()) {
