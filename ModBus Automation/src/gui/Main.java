@@ -12,8 +12,8 @@ import javax.swing.*;
 public class Main implements ActionListener {
 	private JLabel alarmLabel;
     public static Master master;
+    public static DataStruct alarm;
     public static Integer dataRead;
-    public static DataStruct alarm = new DataStruct(0, 8, 0, "Alarme da casa");
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -23,13 +23,14 @@ public class Main implements ActionListener {
         });
     }
 
-    public Main(){
+    public Main() {
     	Main.dataRead = null;
     	
         try {
 			Main.master = new Master(1000, 9600, "COM1");
 			Main.master.openPort();
 			Main.master.start();
+			Main.alarm = new DataStruct(0, 8, 0, "Alarme da casa");
 		}
 		catch (IOException ioe) {
 			Main.master.closePort();

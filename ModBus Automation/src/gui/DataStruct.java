@@ -1,8 +1,8 @@
 package gui;
-class DataStruct{
+class DataStruct {
     int info;
     String name;
-    int reg, bit; //Ignore por enquanto :P Explico quando nos reunirmos
+    int reg, bit;
 
     public DataStruct(int info, int reg, int bit, String name) {
         this.info = info;

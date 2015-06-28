@@ -188,7 +188,7 @@ public class Master {
 
 			this.thread = new Thread(swr);
 			this.thread.start();
-
+			
 //			this.write(1, 3);
 //			this.write(2, 4);
 //			this.write(3, 5);

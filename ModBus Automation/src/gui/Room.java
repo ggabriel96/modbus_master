@@ -31,21 +31,21 @@ class Room{
         if(index >= 0 && index < this.getDataSize())
             return data.get(index).info;
 
-        return -1; //Mudar para Exception... algum dia :P
+        return -1;
     }
 
     public String getName(int index){
         if(index >= 0 && index < this.getDataSize())
             return data.get(index).name;
 
-        return null; //Mudar para Exception... algum dia :P
+        return null;
     }
 
     public DataStruct getInfo(String name){
         for(int i = 0; i < this.getDataSize(); i++)
             if((data.get(i).name).equals(name)) return data.get(i);
 
-        return null; //Mudar para Exception... algum dia :P
+        return null;
     }
 
     public void setInfo(int index, int value){
@@ -64,7 +64,7 @@ class Room{
             }
         }
     }
-
+    
     public void newLamp(int num, int reg, int bit) {
         DataStruct tmp = new DataStruct(0, reg, bit, "Lampada " + num);
         data.add(tmp);

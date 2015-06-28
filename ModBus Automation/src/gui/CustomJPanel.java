@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 public class CustomJPanel extends JPanel implements MouseListener {
 	private Room[] rooms;
 	private Image backgroundImage;
-	private static boolean windows[];
+	public static boolean windows[];
 	private static final long serialVersionUID = 1L;
 	public static final int ROOMS_QTTY = 20, POOL = 0, BATH2 = 1, STORAGE = 2, BATH3 = 3, POOL_BALC = 4,
 			SUITE = 5, CLOSET = 6, BEDROOM2 = 7, BATH1 = 8, WASHROOM = 9, HALL = 10, BEDROOM1 = 11, PLAYROOM = 12,
@@ -29,7 +29,7 @@ public class CustomJPanel extends JPanel implements MouseListener {
         CustomJPanel.windows = new boolean[CustomJPanel.ROOMS_QTTY];
         for (int i = 0; i < CustomJPanel.ROOMS_QTTY; i++) {
         	this.rooms[i] = new Room();
-        	windows[i] = false;
+        	CustomJPanel.windows[i] = false;
         }
         
         this.rooms[CustomJPanel.POOL].setName("Piscina");
@@ -134,7 +134,7 @@ public class CustomJPanel extends JPanel implements MouseListener {
 
     public void eventOutput(String eventDescription, MouseEvent e) {
 //    	System.out.println(eventDescription + " detected on " + e.getComponent().getClass().getName() + ".");
-       System.out.println("X: " + e.getX() + "      Y: " + e.getY());
+//       System.out.println("X: " + e.getX() + "      Y: " + e.getY());
     }
 
     public void mousePressed(MouseEvent e) {
@@ -230,71 +230,56 @@ public class CustomJPanel extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
     
-    public static void closed(JFrame f) {
+    public static int arrayIndex(JFrame f) {
     	switch (f.getTitle()) {
-    		case "Piscina":
-    			CustomJPanel.windows[CustomJPanel.POOL] = false;
-    			break;
-    		case "Banheiro da suite":
-    			CustomJPanel.windows[CustomJPanel.BATH2] = false;
-    			break;
-    		case "Deposito":
-    			CustomJPanel.windows[CustomJPanel.STORAGE] = false;
-    			break;
-    		case "Banheiro externo":
-    			CustomJPanel.windows[CustomJPanel.BATH3] = false;
-    			break;
-    		case "Varanda da piscina":
-    			CustomJPanel.windows[CustomJPanel.POOL_BALC] = false;
-    			break;
-    		case "Suite":
-    			CustomJPanel.windows[CustomJPanel.SUITE] = false;
-    			break;
-    		case "Closet":
-    			CustomJPanel.windows[CustomJPanel.CLOSET] = false;
-    			break;
-    		case "Dormitorio 2":
-    			CustomJPanel.windows[CustomJPanel.BEDROOM2] = false;
-    			break;
-    		case "Banheiro dos dormitorios":
-    			CustomJPanel.windows[CustomJPanel.BATH1] = false;
-    			break;
-    		case "Lavatorio":
-    			CustomJPanel.windows[CustomJPanel.WASHROOM] = false;
-    			break;
-    		case "Circulacao":
-    			CustomJPanel.windows[CustomJPanel.HALL] = false;
-    			break;
-    		case "Dormitorio 1":
-    			CustomJPanel.windows[CustomJPanel.BEDROOM1] = false;
-    			break;
-    		case "Sala de Jogos":
-    			CustomJPanel.windows[CustomJPanel.PLAYROOM] = false;
-    			break;
-    		case "Sala de Jantar":
-    			CustomJPanel.windows[CustomJPanel.DINING] = false;
-    			break;
-    		case "Sala de Estar":
-    			CustomJPanel.windows[CustomJPanel.LIVING] = false;
-    			break;
-    		case "Varanda":
-    			CustomJPanel.windows[CustomJPanel.BALCONY] = false;
-    			break;
-    		case "Cozinha":
-    			CustomJPanel.windows[CustomJPanel.KITCHEN] = false;
-    			break;
-    		case "Lavabo":
-    			CustomJPanel.windows[CustomJPanel.LAVATORY] = false;
-    			break;
-    		case "Lavanderia":
-    			CustomJPanel.windows[CustomJPanel.LAUNDRY] = false;
-    			break;
-    		case "Garagem":
-    			CustomJPanel.windows[CustomJPanel.GARAGE] = false;
-    			break;
-    		default:
-    			break;
+		case "Piscina":
+			return CustomJPanel.POOL;
+		case "Banheiro da suite":
+			return CustomJPanel.BATH2;
+		case "Deposito":
+			return CustomJPanel.STORAGE;
+		case "Banheiro externo":
+			return CustomJPanel.BATH3;
+		case "Varanda da piscina":
+			return CustomJPanel.POOL_BALC;
+		case "Suite":
+			return CustomJPanel.SUITE;
+		case "Closet":
+			return CustomJPanel.CLOSET;
+		case "Dormitorio 2":
+			return CustomJPanel.BEDROOM2;
+		case "Banheiro dos dormitorios":
+			return CustomJPanel.BATH1;
+		case "Lavatorio":
+			return CustomJPanel.WASHROOM;
+		case "Circulacao":
+			return CustomJPanel.HALL;
+		case "Dormitorio 1":
+			return CustomJPanel.BEDROOM1;
+		case "Sala de Jogos":
+			return CustomJPanel.PLAYROOM;
+		case "Sala de Jantar":
+			return CustomJPanel.DINING;
+		case "Sala de Estar":
+			return CustomJPanel.LIVING;
+		case "Varanda":
+			return CustomJPanel.BALCONY;
+		case "Cozinha":
+			return CustomJPanel.KITCHEN;
+		case "Lavabo":
+			return CustomJPanel.LAVATORY;
+		case "Lavanderia":
+			return CustomJPanel.LAUNDRY;
+		case "Garagem":
+			return CustomJPanel.GARAGE;
+		default:
+			return -1;
     	}
+    }
+    
+    public static void closed(JFrame f) {
+    	int i = CustomJPanel.arrayIndex(f);
+    	CustomJPanel.windows[i] = false;
     }
 
     public void mouseClicked(MouseEvent e) {
